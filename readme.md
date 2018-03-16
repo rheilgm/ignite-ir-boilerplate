@@ -10,7 +10,7 @@ This is the boilerplate that [Infinite Red](https://infinite.red) uses as a way 
 
 Currently includes:
 
-* React Native 0.45.1 (but you can change this if you want to experiment)
+* React Native 0.52.2 (but you can change this if you want to experiment)
 * React Navigation
 * Redux
 * Redux Sagas
@@ -56,16 +56,36 @@ Containers are (mostly) full screens, although they can be sections of screens o
 * `LoginScreen.js` - an example login screen. Read the comments in there to learn more!
 * `Styles` - styling for each of the above containers and screens
 
+To generate a new Container or Screen you can use the following generator commands:
+
+* `ignite g container New` - Will create a `New.js` and also a `Styles/NewStyle.js`.
+* `ignite g list New` - The same as the `container` command, but it will give you a walkthrough to generate a ListView screen. Allowing you to even pick `FlatList` or not, grid, and some other options. 
+* `ignite g screen New` - Will create a `NewScreen.js` and also a `Styles/NewScreenStyle.js`. Important to mention that the `screen` generator will add the `Screen` on the file/class name to make easier to identify.
+
+Those commands will also add the new container to the navigations file.
+
 ### Navigation
 
 Your primary and other navigation components reside here.
 
 * `AppNavigation.js` - loads in your initial screen and creates your menu(s) in a StackNavigation
 * `Styles` - styling for the navigation
+* `ReduxNavigation.js` - This file contains the core navigation of your application. If you ever change your launch screen, make sure to change it also at `if (nav.routes.length === 1 && (nav.routes[0].routeName === 'LaunchScreen')) {`, otherwise you may encounter navigation problems with the Android back button!
 
 ### Components
 
 React components go here...pretty self-explanatory. We won't go through each in detail -- open each file to read the comments and view the code.
+
+To generate a new Component you can use the following generator commands:
+
+* `ignite g component New` - Will create a `New.js` and also a `Styles/NewStyle.js`.
+* `ignite g component path/New` - The same as above, but will use a relative path
+* `ignite g component --folder path` - An alternative to `ignite g component path/index`
+* `ignite g component --folder path new ` - An alternative to `ignite g component relativePath/New`
+
+### Storybook
+
+[Storybook](https://storybook.js.org/) has been setup to show off components in the different states. Storybook is a great way to develop and test components outside of use in your app. Simply run `npm run storybook` to get started. All stores are contained in the `*.story.js` files along side the components.
 
 ### Themes
 
@@ -75,7 +95,7 @@ Styling themes used throughout your app styles.
 * `Colors.js` - defined colors for your app
 * `Fonts.js` - defined fonts for your app
 * `Images.js` - loads and caches images used in your app
-* `Metrics.js` - useful measurements of things like searchBarHeight
+* `Metrics.js` - useful measurements of things like navBarHeight
 
 ### Config
 
@@ -93,6 +113,11 @@ Contains json files that mimic API responses for quicker development. These are 
 ### Redux, Sagas
 
 Contains a preconfigured Redux and Redux-Sagas setup. Review each file carefully to see how Redux interacts with your application.
+
+Here again we have generators to help you out. You just have to use one of the following:
+
+* `ignite g redux Amazing` - Will generate and link the redux for `Amazing`.
+* `ignite g saga Amazing` - The same as above, but for the Sagas
 
 _TODO: explain more about Redux & Redux Sagas here_
 
@@ -121,6 +146,9 @@ Helpers for transforming data between API and your application and vice versa. A
 ### Tests
 
 This folder (located as a sibling to `App`) contains sample Jest snapshot and unit tests for your application.
+
+If you would like to have the `ignite generate` command include the generation of tests when avaiable, add 
+`"test": "jest"` or `"test": "ava"` to `./ignite/ignite.json`, depending on the test runner you are using.
 
 **Previous Boilerplates**
 

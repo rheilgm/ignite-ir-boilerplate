@@ -51,10 +51,11 @@ async function install (context) {
   })
   if (rnInstall.exitCode > 0) process.exit(rnInstall.exitCode)
 
-  // remove the __tests__ directory that come with React Native
+  // remove the __tests__ directory and App.js that come with React Native
   filesystem.remove('__tests__')
+  filesystem.remove('App.js')
 
-  // copy our App & Tests directories
+  // copy our App, Tests & storybook directories
   spinner.text = '▸ copying files'
   spinner.start()
   filesystem.copy(`${__dirname}/boilerplate/App`, `${process.cwd()}/App`, {
@@ -62,6 +63,10 @@ async function install (context) {
     matching: '!*.ejs'
   })
   filesystem.copy(`${__dirname}/boilerplate/Tests`, `${process.cwd()}/Tests`, {
+    overwrite: true,
+    matching: '!*.ejs'
+  })
+  filesystem.copy(`${__dirname}/boilerplate/storybook`, `${process.cwd()}/storybook`, {
     overwrite: true,
     matching: '!*.ejs'
   })
@@ -80,13 +85,14 @@ async function install (context) {
   // generate some templates
   spinner.text = '▸ generating files'
   const templates = [
-    { template: 'index.js.ejs', target: 'index.ios.js' },
-    { template: 'index.js.ejs', target: 'index.android.js' },
+    { template: 'index.js.ejs', target: 'index.js' },
     { template: 'README.md', target: 'README.md' },
     { template: 'ignite.json.ejs', target: 'ignite/ignite.json' },
     { template: '.editorconfig', target: '.editorconfig' },
     { template: '.babelrc', target: '.babelrc' },
-    { template: 'Tests/Setup.js.ejs', target: 'Tests/Setup.js' }
+    { template: 'Tests/Setup.js.ejs', target: 'Tests/Setup.js' },
+    { template: 'storybook/storybook.ejs', target: 'storybook/storybook.js' },
+    { template: '.env.example', target: '.env.example' }
   ]
   const templateProps = {
     name,
@@ -106,6 +112,8 @@ async function install (context) {
    */
   // https://github.com/facebook/react-native/issues/12724
   filesystem.appendAsync('.gitattributes', '*.bat text eol=crlf')
+  filesystem.append('.gitignore', '\n# Misc\n#')
+  filesystem.append('.gitignore', '\n.env\n')
 
   /**
    * Merge the package.json from our template into the one provided from react-native init.
@@ -167,7 +175,7 @@ async function install (context) {
 
     // now run install of Ignite Plugins
     if (answers['dev-screens'] === 'Yes') {
-      await system.spawn(`ignite add dev-screens@"~>2.0.0" ${debugFlag}`, {
+      await system.spawn(`ignite add dev-screens@"~>2.2.0" ${debugFlag}`, {
         stdio: 'inherit'
       })
     }
@@ -184,6 +192,12 @@ async function install (context) {
 
     if (answers['animatable'] === 'react-native-animatable') {
       await system.spawn(`ignite add animatable@"~>1.0.0" ${debugFlag}`, {
+        stdio: 'inherit'
+      })
+    }
+
+    if (answers['redux-persist'] === 'Yes') {
+      await system.spawn(`ignite add redux-persist@"~>1.0.1" ${debugFlag}`, {
         stdio: 'inherit'
       })
     }
