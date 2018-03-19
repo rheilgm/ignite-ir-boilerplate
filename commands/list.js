@@ -106,7 +106,7 @@ module.exports = async function (context) {
     },
     {
       template: `${styleTemplate}.ejs`,
-      target: `App/Containers/Styles/${name}/styles.js`
+      target: `App/Containers/${name}/styles.js`
     }
   ]
 
