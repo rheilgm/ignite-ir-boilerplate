@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react-native'
 
-import AlertMessage from './AlertMessage'
+import AlertMessage from './index'
 
 storiesOf('AlertMessage')
   .add('Default', () => (

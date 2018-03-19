@@ -18,23 +18,18 @@ module.exports = async function (context) {
     return
   }
 
-  let componentPath = hasFolder ? `${options.folder}/${parameters.first || 'index'}` : parameters.first
-
-  let pathComponents = componentPath.split('/').map(pascalCase)
-  let name = pathComponents.pop()
-  if (name === 'Index') { name = 'index' }
-  const relativePath = pathComponents.length ? pathComponents.join('/') + '/' : ''
-
+  const name = pascalCase(parameters.first)
   const props = { name }
+
   const jobs = [{
     template: 'component.ejs',
-    target: `App/Components/${relativePath}${name}.js`
+    target: `App/Components/${name}/index.js`
   }, {
     template: 'component-style.ejs',
-    target: `App/Components/${relativePath}Styles/${name}Style.js`
+    target: `App/Components/${name}/styles.js`
   }, tests === 'ava' && {
     template: 'component-test.ejs',
-    target: `Test/Components/${relativePath}${name}Test.js`
+    target: `Test/Components/${name}/${name}Test.js`
   }]
 
   await ignite.copyBatch(context, jobs, props)
