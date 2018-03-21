@@ -23,15 +23,19 @@ const ApplicationStyles = {
       paddingTop: Metrics.baseMargin,
       backgroundColor: Colors.transparent
     },
+
+    titleSection: {
+      marginTop: 40
+    },
+
     section: {
-      margin: Metrics.section,
+      marginHorizontal: Metrics.section,
+      marginBottom: 5,
       padding: Metrics.baseMargin
     },
     sectionText: {
       ...Fonts.style.normal,
-      paddingVertical: Metrics.doubleBaseMargin,
-      color: Colors.snow,
-      marginVertical: Metrics.smallMargin,
+      color: Colors.text,
       textAlign: 'center'
     },
     subtitle: {
@@ -41,9 +45,19 @@ const ApplicationStyles = {
       marginHorizontal: Metrics.smallMargin
     },
     titleText: {
-      ...Fonts.style.h2,
-      fontSize: 14,
-      color: Colors.text
+      ...Fonts.style.h3,
+      color: Colors.text,
+      textAlign: 'center'
+    },
+    subTitleText: {
+      ...Fonts.style.h4,
+      color: Colors.text,
+      textAlign: 'center'
+    },
+    modalBack: {
+      position: 'absolute',
+      top: 30,
+      left: 20
     }
   },
   darkLabelContainer: {

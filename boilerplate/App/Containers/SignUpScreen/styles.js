@@ -30,9 +30,5 @@ export default StyleSheet.create({
 
   loginButton: {
     marginTop: 15
-  },
-
-  forgotPassword: {
-    alignSelf: 'flex-end'
   }
 })

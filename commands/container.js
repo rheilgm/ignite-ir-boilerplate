@@ -36,7 +36,7 @@ module.exports = async function (context) {
   if (config.navigation === 'react-navigation') {
     const containerName = name
     const appNavFilePath = `${process.cwd()}/App/Navigation/AppNavigation.js`
-    const importToAdd = `import ${containerName} from '../Containers/${containerName}'`
+    const importToAdd = `import ${containerName} from 'Containers/${containerName}'`
     const routeToAdd = `  ${containerName}: { screen: ${containerName} },`
 
     if (!filesystem.exists(appNavFilePath)) {
